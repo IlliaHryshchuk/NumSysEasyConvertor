@@ -173,7 +173,7 @@ int main()
 			system("pause");
 			continue;
 		}
-		if (SysOfCount == SystemOfCountBase)
+		if (SysOfCount !=2 && SystemOfCountBase !=2 && SysOfCount == SystemOfCountBase)
 		{
 			cout << "\nПомилка перетворення! Однакові системи числення!\n";
 			system("pause");
@@ -188,52 +188,52 @@ int main()
 			convert_double(var - (int)var, SysOfCount, &s[k]);
 			if (minus == true)
 			{
-				cout << "-" << s;
+				cout << "-0," << s;
 			}
 			else
 			{
-				cout << s;
+				cout << "0," << s;
 			}
 			cout << "\nОбернений код: ";
-			while (s[yn-1] != '\0')
-			{
-				if (s[yn - 1] == '0')
-					s[yn - 1] = '1';
-				else if(s[yn-1] == '1')
-					s[yn - 1] = '0';
-				yn++;
-			}
 			if (minus == true)
 			{
-				cout << "-" << s;
+				while (s[yn - 1] != '\0')
+				{
+					if (s[yn - 1] == '0')
+						s[yn - 1] = '1';
+					else if (s[yn - 1] == '1')
+						s[yn - 1] = '0';
+					yn++;
+				}
+				cout << "-0," << s;
 			}
 			else
 			{
-				cout << s;
+				cout << "0," << s;
 			}
 			cout << "\nДодатковий код: ";
-			for (yn = 0; yn < 80; yn++)
-				if (s[yn] == '.') break;
-			for (int i = yn; i >= 0; i--)
-			{
-				if (s[i] == '1')
-				{
-					s[i] = '0';
-					continue;
-				}
-				if (s[i] == '0')
-				{
-					s[i] = '1';
-					break;
-				}
-			}
 			if (minus == true)
 			{
-				cout << "-" << s;
+				for (yn = 0; yn < 80; yn++)
+					if (s[yn] == '.') break;
+				for (int i = yn; i >= 0; i--)
+				{
+					if (s[i] == '1')
+					{
+						s[i] = '0';
+						continue;
+					}
+					if (s[i] == '0')
+					{
+						s[i] = '1';
+						break;
+					}
+				}
+				cout << "-0," << s;
 			}
 			else
 			{
-				cout << s;
+				cout << "0," << s;
 			}
 		}
 		else
