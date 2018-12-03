@@ -109,135 +109,81 @@ int main()
 	while (yn != 0)
 	{
 		system("cls");
-		cout << "Введіть основу систми числення базового числа: ";
-		cin >> SystemOfCountBase;
-		if (SystemOfCountBase < 2 || SystemOfCountBase >16)
+		cout << "1 - Конвертор систем числення\n2 - Прямий, обернений, та додатковий код числа\n";
+		cin >> yn;
+		if (yn == 1)
 		{
-			cout << "\nДана система числення не підтримується! Використайте іншу! (від 2 до 16)\n";
-			system("pause");
-			continue;
-		}
-		cout << "Введіть число(дроби через крапку): ";
-		if (SystemOfCountBase == 10)
-		{
-			cin >> var;
-			if (var < 0)
+			system("cls");
+			cout << "Введіть основу систми числення вашого числа: ";
+			cin >> SystemOfCountBase;
+			if (SystemOfCountBase < 2 || SystemOfCountBase >16)
 			{
-				minus = true;
-				var = var * (-1);
+				cout << "\nДана система числення не підтримується! Використайте іншу! (від 2 до 16)\n";
+				system("pause");
+				continue;
 			}
-		}
-		else if (SystemOfCountBase >=2 && SystemOfCountBase != 10 && SystemOfCountBase <= 16)
-		{
-			cin >> vhidnevar;
-			yn = 1;
-			if (vhidnevar[0] == '-')
+			cout << "Введіть число(дроби через крапку): ";
+			if (SystemOfCountBase == 10)
 			{
-				minus = true;
+				cin >> var;
+				if (var < 0)
+				{
+					minus = true;
+					var = var * (-1);
+				}
+			}
+			else if (SystemOfCountBase >= 2 && SystemOfCountBase != 10 && SystemOfCountBase <= 16)
+			{
+				cin >> vhidnevar;
+				yn = 1;
+				if (vhidnevar[0] == '-')
+				{
+					minus = true;
+					while (vhidnevar[yn - 1] != '\0')
+					{
+						vhidnevar[yn - 1] = vhidnevar[yn];
+						yn++;
+					}
+				}
+				yn = 1;
+				bool isdot = false;
 				while (vhidnevar[yn - 1] != '\0')
 				{
-					vhidnevar[yn - 1] = vhidnevar[yn];
-					yn++;
-				}
-			}
-			yn = 1;
-			bool isdot = false;
-			while (vhidnevar[yn-1] != '\0')
-			{
-				if (vhidnevar[yn-1] == '.')
-				{
-					isdot = true;
-					break;
-				}
-				yn++;
-			}
-			if (isdot != true)
-			{
-				vhidnevar[yn-1] = '.';
-				vhidnevar[yn] = '0';
-				vhidnevar[yn+1] = '\0';
-			}
-			var = convert_any_to_dec(vhidnevar, SystemOfCountBase);
-		}
-		else
-		{
-			cout << "\nДана система числення не підтримується! Використайте іншу! (від 2 до 16)\n";
-			system("pause");
-			continue;
-		}
-		cout << "Введіть основу системи числення вихідного числа: ";
-		cin >> SysOfCount;
-		if (SysOfCount < 2 || SysOfCount >16)
-		{
-			cout << "\nДана система числення не підтримується! Використайте іншу! (від 2 до 16)\n";
-			system("pause");
-			continue;
-		}
-		if (SysOfCount !=2 && SystemOfCountBase !=2 && SysOfCount == SystemOfCountBase)
-		{
-			cout << "\nПомилка перетворення! Однакові системи числення!\n";
-			system("pause");
-			continue;
-		}
-		if (SysOfCount == 2)
-		{
-			yn = 1;
-			cout << "\nПрямий код: ";
-			int k = convert_int((int)var, SysOfCount, s);
-			s[k++] = '.';
-			convert_double(var - (int)var, SysOfCount, &s[k]);
-			if (minus == true)
-			{
-				cout << "-0," << s;
-			}
-			else
-			{
-				cout << "0," << s;
-			}
-			cout << "\nОбернений код: ";
-			if (minus == true)
-			{
-				while (s[yn - 1] != '\0')
-				{
-					if (s[yn - 1] == '0')
-						s[yn - 1] = '1';
-					else if (s[yn - 1] == '1')
-						s[yn - 1] = '0';
-					yn++;
-				}
-				cout << "-0," << s;
-			}
-			else
-			{
-				cout << "0," << s;
-			}
-			cout << "\nДодатковий код: ";
-			if (minus == true)
-			{
-				for (yn = 0; yn < 80; yn++)
-					if (s[yn] == '.') break;
-				for (int i = yn; i >= 0; i--)
-				{
-					if (s[i] == '1')
+					if (vhidnevar[yn - 1] == '.')
 					{
-						s[i] = '0';
-						continue;
-					}
-					if (s[i] == '0')
-					{
-						s[i] = '1';
+						isdot = true;
 						break;
 					}
+					yn++;
 				}
-				cout << "-0," << s;
+				if (isdot != true)
+				{
+					vhidnevar[yn - 1] = '.';
+					vhidnevar[yn] = '0';
+					vhidnevar[yn + 1] = '\0';
+				}
+				var = convert_any_to_dec(vhidnevar, SystemOfCountBase);
 			}
 			else
 			{
-				cout << "0," << s;
+				cout << "\nДана система числення не підтримується! Використайте іншу! (від 2 до 16)\n";
+				system("pause");
+				continue;
 			}
-		}
-		else
-		{
+			cout << "Введіть вихідну основу системи числення: ";
+			cin >> SysOfCount;
+			if (SysOfCount < 2 || SysOfCount >16)
+			{
+				cout << "\nДана система числення не підтримується! Використайте іншу! (від 2 до 16)\n";
+				system("pause");
+				continue;
+			}
+			if (SysOfCount == SystemOfCountBase)
+			{
+				cout << "\nПомилка перетворення! Однакові системи числення!\n";
+				system("pause");
+				continue;
+			}
 			int k = convert_int((int)var, SysOfCount, s);
 			s[k++] = '.';
 			convert_double(var - (int)var, SysOfCount, &s[k]);
@@ -249,9 +195,64 @@ int main()
 			{
 				cout << "\nРезультат: " << s;
 			}
+			minus = false;
 		}
-		minus = false;
-		cout << "\n\n1 - Виконати ще одне перетворення | 0 - Завершити роботу\n\n";
+		else if (yn == 2)
+		{
+			system("cls");
+			cout << "Введіть число у двійковій системі числення: ";
+			cin >> vhidnevar;
+			cout << "\n\nПрямий код:     ";
+			if (vhidnevar[0] == '-')
+			{
+				vhidnevar[0] = ' ';
+				vhidnevar[1] = '1';
+			}
+			cout << vhidnevar;
+			cout << "\nОбернений код:  ";
+			if (vhidnevar[0] == ' ')
+			{
+				yn = 3;
+				while (vhidnevar[yn] != '\0')
+				{
+					if (vhidnevar[yn] == '0')
+						vhidnevar[yn] = '1';
+					else if (vhidnevar[yn] == '1')
+						vhidnevar[yn] = '0';
+					yn++;
+				}
+			}
+			cout << vhidnevar;
+			cout << "\nДодатковий код: ";
+			if (vhidnevar[0] == ' ')
+			{
+				for (int i = yn; i >= 3; i--)
+				{
+					if (vhidnevar[i] == '1')
+					{
+						vhidnevar[i] = '0';
+						continue;
+					}
+					if (vhidnevar[i] == '0')
+					{
+						vhidnevar[i] = '1';
+						cout << vhidnevar;
+						break;
+					}
+				}
+			}
+			else
+			{
+				cout << vhidnevar;
+			}
+		}
+		else
+		{
+			cout << "\nСпробуйте ще раз!\n";
+			system("pause");
+			continue;
+		}
+		cout << "\n\n1 - Виконати ще одну дію | 0 - Завершити роботу\n\n";
 		cin >> yn;
 	}
 	system("cls");
