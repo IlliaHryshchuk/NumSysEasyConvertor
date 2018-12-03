@@ -1,4 +1,4 @@
 ﻿  Source.cpp
-c:\users\asus\source\repos\easyconvertor\easyconvertor\source.cpp(49): warning C4715: 'character': not all control paths return a value
 c:\users\asus\source\repos\easyconvertor\easyconvertor\source.cpp(27): warning C4715: 'digit': not all control paths return a value
+c:\users\asus\source\repos\easyconvertor\easyconvertor\source.cpp(49): warning C4715: 'character': not all control paths return a value
   easyConvertor.vcxproj -> C:\Users\asus\source\repos\easyConvertor\Debug\easyConvertor.exe

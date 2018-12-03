@@ -100,6 +100,7 @@ void convert_double(long double variable, int SystemOfCounting, char *s)
 int main()
 {
 	long double var;
+	bool minus = false;
 	char s[80] = { 0 };
 	char vhidnevar[80] = { 0 };
 	int SysOfCount, SystemOfCountBase;
@@ -120,10 +121,25 @@ int main()
 		if (SystemOfCountBase == 10)
 		{
 			cin >> var;
+			if (var < 0)
+			{
+				minus = true;
+				var = var * (-1);
+			}
 		}
 		else if (SystemOfCountBase >=2 && SystemOfCountBase != 10 && SystemOfCountBase <= 16)
 		{
 			cin >> vhidnevar;
+			yn = 1;
+			if (vhidnevar[0] == '-')
+			{
+				minus = true;
+				while (vhidnevar[yn - 1] != '\0')
+				{
+					vhidnevar[yn - 1] = vhidnevar[yn];
+					yn++;
+				}
+			}
 			yn = 1;
 			bool isdot = false;
 			while (vhidnevar[yn-1] != '\0')
@@ -170,7 +186,14 @@ int main()
 			int k = convert_int((int)var, SysOfCount, s);
 			s[k++] = '.';
 			convert_double(var - (int)var, SysOfCount, &s[k]);
-			cout << s;
+			if (minus == true)
+			{
+				cout << "-" << s;
+			}
+			else
+			{
+				cout << s;
+			}
 			cout << "\nОбернений код: ";
 			while (s[yn-1] != '\0')
 			{
@@ -180,7 +203,14 @@ int main()
 					s[yn - 1] = '0';
 				yn++;
 			}
-			cout << s;
+			if (minus == true)
+			{
+				cout << "-" << s;
+			}
+			else
+			{
+				cout << s;
+			}
 			cout << "\nДодатковий код: ";
 			for (yn = 0; yn < 80; yn++)
 				if (s[yn] == '.') break;
@@ -197,15 +227,30 @@ int main()
 					break;
 				}
 			}
-			cout << s;
+			if (minus == true)
+			{
+				cout << "-" << s;
+			}
+			else
+			{
+				cout << s;
+			}
 		}
 		else
 		{
 			int k = convert_int((int)var, SysOfCount, s);
 			s[k++] = '.';
 			convert_double(var - (int)var, SysOfCount, &s[k]);
-			cout << "\nРезультат: " << s;
+			if (minus == true)
+			{
+				cout << "\nРезультат: -" << s;
+			}
+			else
+			{
+				cout << "\nРезультат: " << s;
+			}
 		}
+		minus = false;
 		cout << "\n\n1 - Виконати ще одне перетворення | 0 - Завершити роботу\n\n";
 		cin >> yn;
 	}
